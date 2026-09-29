@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="rw">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kinyarwanda TTS Listening Test</title>
+<style>
+  :root { --bg:#fafaf7; --fg:#1d1d1b; --muted:#6b6b66; --card:#fff; --line:#e3e2dc; --accent:#1f6f5c; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161615; --fg:#ecebe6; --muted:#9a9993; --card:#1f1f1d; --line:#33332f; --accent:#5cc2a6; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:24px 16px 80px; }
+  h1 { font-size:1.4rem; margin:0 0 4px; }
+  p.lead { color:var(--muted); margin:0 0 20px; }
+  .item { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:14px; }
+  .text { font-weight:600; margin-bottom:10px; }
+  .clip { display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--line); }
+  .clip:first-of-type { border-top:0; }
+  .label { width:24px; font-weight:700; color:var(--accent); }
+  audio { height:36px; flex:1 1 260px; min-width:0; }
+  .stars button { border:1px solid var(--line); background:transparent; color:var(--fg); border-radius:6px; width:34px; height:34px; cursor:pointer; }
+  .stars button.on { background:var(--accent); border-color:var(--accent); color:var(--bg); }
+  .bar { position:sticky; bottom:0; background:var(--bg); border-top:1px solid var(--line); padding:12px 16px; display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
+  .bar button { background:var(--accent); color:var(--bg); border:0; border-radius:8px; padding:10px 16px; font-weight:600; cursor:pointer; }
+  #progress { color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Kinyarwanda TTS listening test</h1>
+  <p class="lead">Rate how natural each clip sounds: 1 = clearly a machine, 5 = sounds exactly like a native speaker. System names are hidden and the order changes per sentence.</p>
+  <label>Your name: <input id="rater" placeholder="e.g. Aline"></label>
+  <div id="list" style="margin-top:16px"></div>
+</main>
+<div class="bar"><span id="progress"></span><button id="export">Download ratings (CSV)</button></div>
+<script>
+const DATA = __DATA__;
+const KEY = "kin-tts-ratings";
+let ratings = {};
+try { ratings = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(ratings)); } catch (e) {} };
+const total = DATA.reduce((n, d) => n + d.clips.length, 0);
+const progress = () => document.getElementById("progress").textContent = `${Object.keys(ratings).length} / ${total} rated`;
+const list = document.getElementById("list");
+for (const item of DATA) {
+  const el = document.createElement("div");
+  el.className = "item";
+  el.innerHTML = `<div class="text">${item.i + 1}. ${item.text.replace(/</g, "&lt;")}</div>`;
+  item.clips.forEach((c, k) => {
+    const id = `${item.i}|${c.sys}`;
+    const row = document.createElement("div");
+    row.className = "clip";
+    row.innerHTML = `<span class="label">${"ABCDEFGH"[k]}</span><audio controls preload="none" src="${c.src}"></audio><span class="stars"></span>`;
+    const stars = row.querySelector(".stars");
+    for (let s = 1; s <= 5; s++) {
+      const b = document.createElement("button");
+      b.textContent = s;
+      if (ratings[id] === s) b.classList.add("on");
+      b.onclick = () => {
+        ratings[id] = s; save(); progress();
+        stars.querySelectorAll("button").forEach((x, j) => x.classList.toggle("on", j + 1 === s));
+      };
+      stars.appendChild(b);
+    }
+    el.appendChild(row);
+  });
+  list.appendChild(el);
+}
+progress();
+document.getElementById("export").onclick = () => {
+  const rater = document.getElementById("rater").value || "anonymous";
+  const rows = [["rater", "sentence", "system", "score"]];
+  for (const [id, s] of Object.entries(ratings)) { const [i, sys] = id.split("|"); rows.push([rater, i, sys, s]); }
+  const blob = new Blob([rows.map(r => r.join(",")).join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = `ratings-${rater}.csv`; a.click();
+};
+</script>
+</body>
+</html>

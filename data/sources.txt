@@ -1,0 +1,5 @@
+# One URL per line: YouTube videos, playlists or channels of Mwanafunzi Waruziko podcast / documentaries
+# Radio Rwanda #WARUZIKO (88 episodes, ~42 h)
+https://www.youtube.com/playlist?list=PL-gsYEBeUsAiu1DdgnWf4owkpwgSN2zoI
+# ISMAËL MWANAFUNZI DOKS (617 episodes, ~208 h)
+https://www.youtube.com/playlist?list=PL0jkBESc0RXFpX5ANLeOdTPU88fD8UhNl

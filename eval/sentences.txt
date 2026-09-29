@@ -1,0 +1,33 @@
+# Test sentences for listening comparisons. One per line; lines starting with # are ignored.
+# Covers greetings, questions, news, numbers, money, dates, names, and code-switching.
+# A native speaker should check and extend these (aim for 100+ before serious evaluation).
+Muraho, amakuru yawe?
+Nitwa Nishimwe, ntuye i Kigali.
+Mwaramutse neza! Mwiriwe mute?
+Uyu munsi ikirere kirakeye, nta mvura iri bugwe.
+Ejo nzajya ku isoko kugura imboga n'imbuto.
+Ese wowe ukunda kurya iki?
+Abana bagiye ku ishuri mu gitondo.
+Murakoze cyane ku bufasha bwanyu.
+Nimuze twubake igihugu cyacu.
+Inama izaba ku wa kabiri saa tatu za mu gitondo.
+Igiciro cy'umuceri cyazamutseho 15%.
+Ni 5,000 Frw gusa.
+Yavutse 05/06/2001 mu karere ka Huye.
+Hamagara kuri 0788123456 niba ukeneye ubufasha.
+Umukino wa Rayon Sports na APR FC urarangiye ari ibitego bibiri kuri kimwe.
+Perezida yakiriye abashyitsi baturutse mu bihugu bitandukanye.
+Inka ni itungo rikomeye mu muco nyarwanda.
+Gira inka, munyarwanda!
+Nta mahoro nta terambere.
+Ubumwe bw'abanyarwanda ni ishingiro ry'iterambere.
+Ndashaka kwiga porogaramu za mudasobwa.
+Telefone yanjye yashizemo umuriro, ndayicaginga.
+Meeting yacu yimuriwe ejo kubera ko internet itari gukora.
+Dr. Mukamana azatanga ikiganiro ku buzima bw'imyororokere.
+Ese koko? Ntabwo nabyemera!
+Yooo, mbabarira cyane, sinabimenye.
+Umwana arira, nyina aramuhoza.
+Amazi ni ubuzima.
+Mu mwaka wa 2024, abaturage basaga miliyoni cumi n'eshatu.
+Twese hamwe, dushobora kugera kure.

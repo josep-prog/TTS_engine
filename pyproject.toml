@@ -1,0 +1,51 @@
+[project]
+name = "kintts"
+version = "0.1.0"
+description = "Native-quality Kinyarwanda text-to-speech"
+authors = [
+    { name = "Joseph Nishimwe", email = "j.nishimwe@alustudent.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.5.3",
+    "pytest>=9.1.1",
+    "soundfile>=0.14.0",
+    "torch>=2.14.0",
+    "transformers>=5.17.0",
+]
+
+[project.scripts]
+kintts-compare = "kintts.compare:main"
+kintts-normalize = "kintts.normalize:main"
+kintts-download = "kintts.data.download:main"
+kintts-prepare = "kintts.data.prepare:main"
+kintts-app = "kintts.app:main"
+kintts-export = "kintts.data.export:main"
+
+[project.optional-dependencies]
+data = [
+    "demucs>=4.0.1",
+    "deno>=2.9.7",
+    "imageio-ffmpeg>=0.6.0",
+    "scikit-learn>=1.9.1",
+    "silero-vad>=6.2.3",
+    "speechbrain>=1.1.1",
+    "torchaudio==2.11.*",
+    "yt-dlp[default]>=2026.8.19",
+]
+demo = [
+    "gradio>=6.28.0",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchaudio = { index = "pytorch-cpu" }
+
+[build-system]
+requires = ["uv_build>=0.12.20,<0.13.0"]
+build-backend = "uv_build"
